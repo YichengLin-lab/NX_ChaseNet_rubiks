@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     in_dim = env.observation_space.shape[0]
     out_dim = env.action_space.n
-    nx_network = torch.load("./models_saved/nx_network_last.pt", map_location="cpu")
+    nx_network = torch.load("./models_saved/nx_network_warmup.pt", map_location="cpu")
     
     nx_module = NX_Module(nx_network)
     ppo_module = PPO_Module(env)
