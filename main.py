@@ -12,17 +12,18 @@ if __name__ == "__main__":
 
     in_dim = env.observation_space.shape[0]
     out_dim = env.action_space.n
-    nx_network = torch.load("./models_saved/nx_network_warmup.pt", map_location="cpu")
-    
+    # nx_network = torch.load("./models_saved/nx_network_warmup.pt", map_location="cpu")
+
+    nx_network = Nx_Network(in_dim, 1)
     nx_module = NX_Module(nx_network)
     ppo_module = PPO_Module(env)
     unified_nx = Unified_NX(env_wraper, nx_module, ppo_module)
 
-    # print("Start Warming up!")
+    print("Start Warming up!")
 
-    # unified_nx.pre_observing()
-    # print("Warm up complete!")
-    # np.save("./nx_net_work_loss_pre_observing.npy", unified_nx.nx_module.loss_history)
+    unified_nx.pre_observing()
+    print("Warm up complete!")
+    np.save("./nx_net_work_loss_pre_observing.npy", unified_nx.nx_module.loss_history)
 
     rews_list = []
     for i in range(100000):
@@ -37,7 +38,7 @@ if __name__ == "__main__":
         torch.save(nx_module.nx_network, "./models_saved/nx_network_during_ppo_last.pt")
         
         rews_list.append(mean_test_rews)    
-        np.save("./statistics/rews_list.npy", rews_list)
+        np.save("./rews_list.npy", rews_list)
 
 
 
