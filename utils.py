@@ -45,7 +45,7 @@ def test_model_recover_rate(model, nx_module, test_batch_size=50):
             
         test_mean_rewards.append(np.sum(rews_list))
         
-        print("Test Round Episode Actions: {}".format(ep_actions))    
+        # print("Test Round Episode Actions: {}".format(ep_actions))    
         
         
     return test_results_list, np.mean(test_mean_rewards)
